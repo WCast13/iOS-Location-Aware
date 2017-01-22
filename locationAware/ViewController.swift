@@ -48,7 +48,54 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     speed.text = String(userLocation.speed)
     altitude.text = String(userLocation.altitude)
     
+    CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarks, error) in
+      
+      if error != nil {
+        print(error)
+      } else {
+        
+        if let placemark = placemarks?[0] {
+          
+          var subThoroughfare = ""
+          if placemark.subThoroughfare != nil {
+            subThoroughfare = placemark.subThoroughfare!
+          }
+//          print(subThoroughfare)
+          
+          var thoroughfare = ""
+          if placemark.thoroughfare != nil {
+            thoroughfare = placemark.thoroughfare!
+          }
+//          print(thoroughfare)
+          
+          var locality = ""
+          if placemark.locality != nil {
+            locality = placemark.locality!
+          }
+//          print(locality)
+          
+          var administrativeArea = ""
+          if placemark.administrativeArea != nil {
+            administrativeArea = placemark.administrativeArea!
+          }
+//          print(administrativeArea)
+          
+          var postalCode = ""
+          if placemark.postalCode != nil {
+            postalCode = placemark.postalCode!
+          }
+//          print(postalCode)
+          
+          var country = ""
+          if placemark.country != nil {
+            country = placemark.country!
+          }
+//          print(country + "\n")
+          
+          self.address.text = String(subThoroughfare + " " + thoroughfare + "\n" + locality + ", " + administrativeArea + " " + postalCode)
+        }
+      }
+    }
   }
-
 }
 
